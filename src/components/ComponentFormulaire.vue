@@ -1,19 +1,10 @@
 <template>
     <div class="card"></div>
-    <div class="wrapper">
-        <div class="title-text">
-          <div class="title login">
-            Login Form
-          </div>
-          
-        </div>
-        <div class="form-container">
+       <div  class="wrapper"> 
+        <div v-if="!login" class="form-container">
           <div class="slide-controls">
-            <input type="radio" name="slide" id="login" checked>
-            <input type="radio" name="slide" id="signup">
-            <label for="login" class="slide login">Login</label>
-            <label for="signup" class="slide signup">Signup</label>
-            <div class="slider-tab"></div>
+            <label for="login" class="slide login">Signup</label>  
+            
           </div>
           <div class="form-inner">
             <form>
@@ -35,24 +26,51 @@
               </div>
               <div class="field btn">
                 <div class="btn-layer"></div>
-                <input type="submit"  @click.prevent="connexion" value="Login">
+                <input type="submit"  @click.prevent="inscription" value="Signup">
               </div>
               <div class="signup-link">
-                Not a member? <a href="">Signup now</a>
+                Not a member? <a @click="()=>login=true"
+                >Login now</a>
               </div>
             </form>
-            
-             
-             
             
           </div>
         </div>
       </div>
+      <div class="wrapper">
+        
+        <div v-if="login" class="form-container">
+          <div class="slide-controls">
+            <label for="login" class="slide login">Login</label>  
+            
+          </div>
+          <div class="form-inner">
+            <form>
+              <div class="field">     
+                <input type="email" placeholder="Email Address" v-model='email' >
+              </div>
+              <div class="field">
+                <input type="password" placeholder="Password" v-model='password' >
+              </div>
+              
+              <div class="field btn">
+                <div class="btn-layer"></div>
+                <input type="submit" @click.prevent="connexion" value="Login">
+              </div>
+              <div class="signup-link">
+                Not a member? <a @click="()=>login=false">Signup now</a>
+              </div>
+            </form>
+            
+          </div>
+        </div>
+      </div>
+
     
 </template>
 
 <script>
-import { utilisateur } from '../lib/firebaseFunc'
+import { connexion, inscription } from '../lib/firebaseFunc'
 
 
 export default {
@@ -62,24 +80,43 @@ export default {
             name:"",
             firstname:'',
             email:'',
-            password:''
-            
+            password:'',
+             login: true,           
         }
     },
     methods:{
-        async connexion(){
-           let loginn ={
+        async inscription(){
+           let signup ={
                 name:this.name,
                 firstname:this.firstname,
                 password:this.password,
                 email:this.email
             
             }   
-            await utilisateur(loginn, (success)=>{
-              success ? this.$emit("connected") : ''
-            })
-           
+            await inscription(signup, (success)=>{
+              console.log('success')
+              success?this.login=true:''
+            })     
+        },
+        
+        async connexion(){
+          let login ={
+            password:this.password,
+                email:this.email
+          }
+          await connexion(login, (response)=>{
+            console.log(response)
+            if (response.user){
+              console.log("success")
+              this.$emit("connected")
+            } else{ // dans ou il y a une erruer
+              console.log(response.error)
+            }
+          })
+
+
         }
+     
         
     }
 }
@@ -151,7 +188,7 @@ html,body{
 .slide-controls .slide{
   height: 100%;
   width: 100%;
-  color: #fff;
+ 
   font-size: 18px;
   font-weight: 500;
   text-align: center;
@@ -163,16 +200,7 @@ html,body{
 .slide-controls label.signup{
   color: #000;
 }
-.slide-controls .slider-tab{
-  position: absolute;
-  height: 100%;
-  width: 50%;
-  left: 0;
-  z-index: 0;
-  border-radius: 5px;
-  background: #00035a!important;
-  transition: all 0.6s cubic-bezier(0.68,-0.55,0.265,1.55);
-}
+
 input[type="radio"]{
   display: none;
 }

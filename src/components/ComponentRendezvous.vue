@@ -13,27 +13,27 @@
  
  <div class="radio">
         <div>
-          <input type="radio" name="NON" value="Non">
+          <input type="radio" value="Non" v-model="checked">
           <label>Non</label>
         </div>
     
-        <div >
-          <input type="radio" name="Oui" value="Oui">
+        <div>
+          <input type="radio" value="Oui" v-model="checked">
           <label >Oui</label>
         </div>
 </div>
 
 
 <div class="contact">
-      <input type="number" placeholder="Telephone"  v-model="number">
+      <input type="number" placeholder="Telephone"  v-model="telephone">
       <input type="text" placeholder="courriel" v-model="email">
       <input type="numder"  placeholder="Age" v-model="age">
 </div>
 <p>Nom et prénom du parent si patient mineur</p>
 <div class="parent">
    
-   <input type="text" placeholder=" Nom parent*" v-model="naneparent">
-   <input type="text" placeholder="Prenom parent*" v-model="firstnameparent">
+   <input type="text" placeholder=" Nom parent*" v-model="nameparent">
+   <input type="text" placeholder="Prenom parent*" v-model="firstparent">
 </div>
 <div class="calendrier">
   <p>À partir de quelle date souhaitez-vous un rendez-vous?</p>
@@ -52,48 +52,88 @@
   <p>Quel est le moment de la journée qui vous convient le mieux?</p>
   <div class="checkbox">
   <div class="check">
-    <input type="checkbox" id="scales" name="Matin">
+    <input type="radio" id="scales" value="Matin" v-model="che">
     <label >Matin</label>
   </div>
 
   <div class="check">
-    <input type="checkbox" id="horns" name="midi">
+    <input type="radio" id="horns" value="midi" v-model="chek">
     <label >Midi</label>
   </div>
   <div class="check">
-    <input type="checkbox" id="horns" name="Après-midi">
+    <input type="radio" id="horns" value="Après-midi" v-model="cheke">
     <label >Après-midi</label>
   </div> 
 </div>
 <div class="textarea">
-   <input type="textarea" placeholder="Raison de la visite">
+   <input type="textarea" placeholder="Raison de la visite" v-model="textarea">
    <p>Les champs marqués d'un astérisque (*) sont obligatoires.</p>
 </div>
 
-   <button>Envoyer maintenant</button>
+   <button  @click.prevent="rendezvous">Envoyer maintenant</button>
 </form>
 </div>
 
 </template>
 
 <script>
+import { addDoc, collection } from '@firebase/firestore';
    import ComponentFormulaire from '../components/ComponentFormulaire.vue';
+   import { db } from '@/lib/firebaseConf';
     
 export default {
    data(){
       return{
-         showModal:true
-      }
-    
+         age:'',
+         email:'',
+         calendrier:'',
+         telephone:"",
+         nameparent:"",
+         firstparent:"",
+         docter:"",
+         checked:[],
+         chek:"",
+         showModal:true,
+         che:"",
+         chek:"",
+         cheke:""
+      }    
    },
 
    components:{
       ComponentFormulaire
-   }
-      
-   
+   },
+   methods:{
+      rendezvous(){
+           let rendez ={
+            nameparent:this.nameparent, 
+                firstparent:this.firstparent,
+                email:this.email,
+                age:this.age,
+               calendrier:this.calendrier,
+               telephone:this.telephone,
+               docter:this.docter,
+               checked:this.checked,
+               chek:this.check ,
+               che:this.che,
+               chek:this.chek,
+               cheke:this.cheke             
+            }    
+           console.log(rendez);  
+         addDoc(collection(db,'information') ,rendez)
+         .then(()=>{
+            console.log('success');
+            this.$router.push({ name: 'ResultatView' })
+         })
+         .catch(()=>{
+            console.log('error');
+         })
+
 
 }
+   }
+}
+  
 </script>
 
 <style scoped >

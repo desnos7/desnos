@@ -1,19 +1,6 @@
 <template>
   <footer>
-     <!-- <div class="foot2">
-        <div class="image">
-       
-        </div>
-      
-       <div class="foot2-text1">
-   <h1>Subscribe to Newsletter</h1>
-   <form action="">
-     <input id='input' type="text"><button id="btn">Subscribe</button>
-   </form>
-   <p>Get healthy news and solutions to your problems from our experts!</p>
-  </div>
-     </div> -->
-
+   
 
 
      <div class="foot3">
@@ -72,37 +59,15 @@
 
 <script>
 export default {
+    name:'ComponentFooter'
 
 }
 </script>
 
 <style scoped lang="css">
-    .foot2{
-    height: 40vh;
-    width: 100%; 
-    position: relative;
-    z-index: 1;
-    
-    
-}
-.image{
-    width: 100%;
-    height: 368px;
-    position: absolute;
-    opacity: 0.9;
-    background-image: url('../assets/image/hospital-ward-ge3ebe2373_1920.jpg');
-    background-size: cover;
-   
-}
-.image::before {
-    content: "";
-    position: absolute;
-    top: 0px;
-    right: 0px;
-    bottom: 0px;
-    left: 0px;
-    background-color: rgba(0,0,0,0.7);
-}
+ 
+
+
 .foot2-text1{
     position: absolute;
     top: 20%;
@@ -120,23 +85,14 @@ export default {
     border: none;
     border-radius: 15px
 }
-#btn:hover{
-    background-color: rgb(57, 143, 202);
-    transition: 1s ease-in-out;
-}
+
 .foot2-text1>p{
     font-size: 20px;
     padding-top: 15px;
     transform: translate(14%);
    }
 
-#input{
-    
- width: 70%;
-border-radius: 15px;
-border: none;
- height: 45px;
-}
+
 .foot2-text1>h1{
     transform: translate(25%);
     font-size: 30px;
@@ -150,7 +106,7 @@ border: none;
     position: relative;
     display: flex;
     width: 100%;
-    height: 50vh; 
+    height: 34vh; 
     background-color :#132031;;
     justify-content: center;  
 }
@@ -158,14 +114,11 @@ border: none;
     padding-left:5%;
 }
 #foot3-text1{
-    padding-top: 5%;
+   
     width: 20%;  
-    line-height: 30px;
     color: #899faf;
 }
-#foot3-text1>h1{
-    padding-bottom: 25px;
-}
+
 #foot3-text1>p{
     font-size: 20px;
 }
