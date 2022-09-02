@@ -335,5 +335,41 @@ height: 400px;
     margin-left: 2%;
     border: 2px solid #06B3E5;
 }
+@media screen and (max-width:1024px) {
+    .text>p{
+        font-size: 18px;
+    }
+    .text1>h1{
+        font-size: 28px;
+    }
+    .text1>h2{
+        font-size: 19px;
+    }
+
+}
+.box3{
+    width: 100%;
+    height: 40vh;
+}
+@media screen and (max-width:768px) {
+    .text>p{
+        font-size: 18px;
+    }
+    .text1>h1{
+        font-size: 21px;
+    }
+    .text1>h2{
+        font-size: 16px;
+    }
+
+}
+.box3{
+    width: 100%;
+    height: 30vh;
+}
+.box5-item{
+   padding-right:15%;
+  gap: 2%; 
+}
 
 </style>

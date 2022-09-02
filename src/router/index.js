@@ -3,6 +3,7 @@ import HomeView from '../views/HomeView.vue'
 import RendezvousView from '@/views/RendezvousView.vue'
 import ContactusView from "@/views/ContactusView.vue";
 import ResultatView from '@/views/ResultatView.vue'
+import video   from '../views/video.vue'
 
 const routes = [
   {
@@ -24,6 +25,12 @@ const routes = [
     path:'/ResultatView',
     name:'ResultatView',
     component:ResultatView
+  },
+  {
+    path:'/video',
+    name:'video',
+    component:video
+
   }
 ]
 
